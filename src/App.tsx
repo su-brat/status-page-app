@@ -1,13 +1,29 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import ServiceList from "./components/service-list/page";
+import ServiceList from "@/components/service-list/page";
+import Navbar from "@/components/navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <h2>Status Page</h2>
-      <div className="m-auto p-auto">
-        <ServiceList />
-      </div>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<ServiceList />} />
+          <Route
+            path="/incidents"
+            element={<div className="flex justify-center my-4">Incidents</div>}
+          />
+          <Route
+            path="*"
+            element={
+              <div className="flex justify-center my-4">
+                <img src="404.svg" />
+              </div>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
