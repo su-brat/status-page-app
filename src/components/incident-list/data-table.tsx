@@ -21,6 +21,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -32,6 +33,8 @@ export function DataTable<TData, TValue>({
     data,
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([]);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const table = useReactTable({
         data,
@@ -57,6 +60,8 @@ export function DataTable<TData, TValue>({
                                         <TableHead
                                             key={header.id}
                                             className={
+                                                header.id === "createdAt" ||
+                                                header.id === "lastUpdatedAt" ||
                                                 header.id === "status"
                                                     ? ""
                                                     : "px-5"
@@ -83,6 +88,14 @@ export function DataTable<TData, TValue>({
                                     data-state={
                                         row.getIsSelected() && "selected"
                                     }
+                                    onClick={() =>
+                                        navigate(
+                                            location.pathname +
+                                                "/" +
+                                                row.getValue("id"),
+                                        )
+                                    }
+                                    className="cursor-pointer"
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell
