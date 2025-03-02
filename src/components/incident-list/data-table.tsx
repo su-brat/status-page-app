@@ -61,7 +61,8 @@ export function DataTable<TData, TValue>({
                                             key={header.id}
                                             className={
                                                 header.id === "createdAt" ||
-                                                header.id === "lastUpdatedAt"
+                                                header.id === "lastUpdatedAt" ||
+                                                header.id === "status"
                                                     ? ""
                                                     : "px-5"
                                             }
