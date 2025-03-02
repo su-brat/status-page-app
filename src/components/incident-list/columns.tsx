@@ -22,7 +22,7 @@ export type IncidentList = {
 export const columns: ColumnDef<IncidentList>[] = [
     {
         accessorKey: "id",
-        header: "Incident ID",
+        header: "Incident",
     },
     {
         accessorKey: "title",
