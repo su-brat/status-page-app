@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-import { Message } from "../timelined-messages";
-import { getData, timelineData } from "./data";
+import { getData } from "./data";
 import { useParams } from "react-router-dom";
 import { TimelineLayout } from "../ui/timeline-layout/timeline-layout";
+import { TimelineItemType } from "../ui/timeline-layout/timeline";
 
 const Layout: React.FC = () => {
     const { incidentId } = useParams();
-    const [messages, setMessages] = useState<Message[]>();
+    const [messages, setMessages] = useState<TimelineItemType[]>();
 
     useEffect(() => {
         async function setData() {
-            const msgs: Message[] = getData(incidentId);
+            const msgs: TimelineItemType[] = await getData(incidentId);
             setMessages(msgs);
         }
         setData();
@@ -19,8 +19,8 @@ const Layout: React.FC = () => {
 
     return (
         <div>
-            <h1>Incident Page</h1>
-            {messages && <TimelineLayout timelineData={timelineData} />}
+            <h1>Incident Updates</h1>
+            {messages && <TimelineLayout timelineData={messages} />}
         </div>
     );
 };

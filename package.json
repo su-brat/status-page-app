@@ -20,6 +20,7 @@
         "@radix-ui/react-slot": "^1.1.2",
         "@tailwindcss/vite": "^4.0.9",
         "@tanstack/react-table": "^8.21.2",
+        "axios": "^1.8.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "lucide-react": "^0.476.0",
@@ -48,5 +49,6 @@
         "typescript": "~5.7.2",
         "typescript-eslint": "^8.24.1",
         "vite": "^6.2.0"
-    }
+    },
+    "proxy": "http://localhost:8080/api"
 }
