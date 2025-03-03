@@ -1,11 +1,25 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import ServiceList from "@/components/service-list/page";
 import IncidentList from "@/components/incident-list/page";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/ui/navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import IncidentPage from "./components/incident-page/page";
+import IncidentLayout from "./components/incident-layout/page";
+import { useCallback, useRef } from "react";
 
 function App() {
+    const appTitle = useRef("Service Tracker");
+    const getNavItems = useCallback(
+        (activeTab: string) => [
+            { name: "Services", path: "/", active: activeTab === "services" },
+            {
+                name: "Incidents",
+                path: "/incidents",
+                active: activeTab === "incidents",
+            },
+        ],
+        [],
+    );
+
     return (
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
             <BrowserRouter>
@@ -14,8 +28,13 @@ function App() {
                         path="/"
                         element={
                             <div>
-                                <Navbar />
-                                <ServiceList />
+                                <Navbar
+                                    title={appTitle.current}
+                                    navItems={getNavItems("services")}
+                                />
+                                <div className="container mx-auto my-10">
+                                    <ServiceList />
+                                </div>
                             </div>
                         }
                     />
@@ -23,20 +42,41 @@ function App() {
                         path="/incidents"
                         element={
                             <div>
-                                <Navbar />
-                                <IncidentList />
+                                <Navbar
+                                    title={appTitle.current}
+                                    navItems={getNavItems("incidents")}
+                                />
+                                <div className="container mx-auto my-10">
+                                    <IncidentList />
+                                </div>
                             </div>
                         }
                     />
                     <Route
                         path="/incidents/:incidentId"
-                        element={<IncidentPage />}
+                        element={
+                            <div>
+                                <Navbar
+                                    title={appTitle.current}
+                                    navItems={getNavItems("incidents")}
+                                />
+                                <div className="container mx-auto my-10">
+                                    <IncidentLayout />
+                                </div>
+                            </div>
+                        }
                     />
                     <Route
                         path="*"
                         element={
-                            <div className="flex justify-center my-4">
-                                <img src="404.svg" />
+                            <div>
+                                <Navbar
+                                    title={appTitle.current}
+                                    navItems={getNavItems("")}
+                                />
+                                <div className="container flex justify-center mx-auto my-10">
+                                    <img src="404.svg" />
+                                </div>
                             </div>
                         }
                     />
