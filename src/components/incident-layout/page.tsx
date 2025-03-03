@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import TimelinedMessages, { Message } from "../timelined-messages";
-import { getData } from "./data";
+import { Message } from "../timelined-messages";
+import { getData, timelineData } from "./data";
 import { useParams } from "react-router-dom";
+import { TimelineLayout } from "../ui/timeline-layout/timeline-layout";
 
-const IncidentPage: React.FC = () => {
+const Layout: React.FC = () => {
     const { incidentId } = useParams();
     const [messages, setMessages] = useState<Message[]>();
 
@@ -19,9 +20,9 @@ const IncidentPage: React.FC = () => {
     return (
         <div>
             <h1>Incident Page</h1>
-            {messages && <TimelinedMessages messages={messages} />}
+            {messages && <TimelineLayout timelineData={timelineData} />}
         </div>
     );
 };
 
-export default IncidentPage;
+export default Layout;
