@@ -1,36 +1,32 @@
+import { getdate } from "@/lib/utils";
 import { IncidentList, IncidentStatus } from "./columns";
+import axios from "axios";
 
 export async function getData(): Promise<IncidentList[]> {
     // TODO: Fetch data from your API here.
     // TODO: Change dates to a string format which can be sorted.
-    return [
-        {
-            id: "INC-1234",
-            title: "API service outage",
-            createdAt: new Date("10-05-2024"),
-            lastUpdatedAt: new Date(),
-            status: IncidentStatus.OPEN,
-        },
-        {
-            id: "INC-1236",
-            title: "Website service outage",
-            createdAt: new Date("12/10/2024"),
-            lastUpdatedAt: new Date(),
-            status: IncidentStatus.OPEN,
-        },
-        {
-            id: "INC-1235",
-            title: "Log service outage",
-            createdAt: new Date("11-07-2024"),
-            lastUpdatedAt: new Date(),
-            status: IncidentStatus.OPEN,
-        },
-        {
-            id: "INC-1237",
-            title: "Users unable to login",
-            createdAt: new Date(),
-            lastUpdatedAt: new Date(),
-            status: IncidentStatus.CLOSED,
-        },
-    ];
+    const getstatus = (closedAt: string) => {
+        if (closedAt) {
+            return IncidentStatus.CLOSED;
+        } else {
+            return IncidentStatus.OPEN;
+        }
+    };
+
+    try {
+        const response = await axios.get("http://localhost:8080/api/incidents");
+        const apiResponse = response.data;
+
+        // Ensure dates are converted to a sortable string format
+        return apiResponse.map((incident: any) => ({
+            id: incident.id,
+            title: incident.title,
+            createdAt: getdate(incident.createdAt),
+            lastUpdatedAt: getdate(incident.closedAt),
+            status: getstatus(incident.closedAt),
+        }));
+    } catch (error) {
+        console.error("Error fetching incidents:", error);
+        return [];
+    }
 }

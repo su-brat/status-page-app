@@ -1,85 +1,21 @@
-import { ServiceList, ServiceStatus } from "./columns";
+import axios from "axios";
+import { ServiceList } from "./columns";
 
 export async function getData(): Promise<ServiceList[]> {
-  // TODO: Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      service: "API",
-      status: ServiceStatus.UP,
-      description: "Backend API service",
-    },
-    {
-      id: "728ed52g",
-      service: "API",
-      status: ServiceStatus.UP,
-      description: "Backend API service",
-    },
-    {
-      id: "728ed52h",
-      service: "API",
-      status: ServiceStatus.UP,
-      description: "Backend API service",
-    },
-    {
-      id: "728ed52i",
-      service: "API",
-      status: ServiceStatus.UP,
-      description: "Backend API service",
-    },
-    {
-      id: "728ed52j",
-      service: "API",
-      status: ServiceStatus.UP,
-      description: "Backend API service",
-    },
-    {
-      id: "728ed52k",
-      service: "API",
-      status: ServiceStatus.UP,
-      description: "Backend API service",
-    },
-    {
-      id: "728ed52l",
-      service: "API",
-      status: ServiceStatus.UP,
-      description: "Backend API service",
-    },
-    {
-      id: "728ed52m",
-      service: "API",
-      status: ServiceStatus.UP,
-      description: "Backend API service",
-    },
-    {
-      id: "728ed52n",
-      service: "API",
-      status: ServiceStatus.UP,
-      description: "Backend API service",
-    },
-    {
-      id: "728ed52o",
-      service: "API",
-      status: ServiceStatus.UP,
-      description: "Backend API service",
-    },
-    {
-      id: "728ed52p",
-      service: "API",
-      status: ServiceStatus.UP,
-      description: "Backend API service",
-    },
-    {
-      id: "728ed52q",
-      service: "API",
-      status: ServiceStatus.DOWN,
-      description: "Backend API service",
-    },
-    {
-      id: "728ed52r",
-      service: "Website",
-      status: ServiceStatus.DOWN,
-      description: "Website service",
+    // TODO: Fetch data from your API here.
+    try {
+        const response = await axios.get("http://localhost:8080/api/services");
+        const apiResponse = response.data;
+
+        // Ensure dates are converted to a sortable string format
+        return apiResponse.map((service: any) => ({
+            id: service.id,
+            service: service.name,
+            status: service.status,
+            description: service.description,
+        }));
+    } catch (error) {
+        console.error("Error fetching service list:", error);
+        return [];
     }
-  ];
 }
