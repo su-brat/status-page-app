@@ -38,7 +38,7 @@ const Layout: React.FC = () => {
                 </Button>
                 <Breadcrumb className="my-auto px-4">
                     <BreadcrumbList>
-                        <BreadcrumbItem className="hover:text-black">
+                        <BreadcrumbItem className="hover:text-primary">
                             <Link to="/incidents">Incidents</Link>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
