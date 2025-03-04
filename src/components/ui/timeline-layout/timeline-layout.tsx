@@ -20,7 +20,9 @@ export const TimelineLayout: React.FC<TimelineLayoutProps> = ({
             {timelineData.map((item) => (
                 <TimelineItem key={item.id}>
                     <TimelineHeader>
-                        <TimelineTime>{item.time}</TimelineTime>
+                        <TimelineTime className="font-normal">
+                            {item.time}
+                        </TimelineTime>
                         {(item.title && (
                             <TimelineTitle>{item.title}</TimelineTitle>
                         )) ||

@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
-export const getdate = (ipdate: string) => {
+export const getdate = (ipdate: string | undefined) => {
     if (!ipdate) {
         return "NA";
     }
@@ -18,6 +18,6 @@ export const getdate = (ipdate: string) => {
     const min = String(date.getMinutes()).padStart(2, "0");
     const ss = String(date.getSeconds()).padStart(2, "0");
 
-    const formattedDate = `${yyyy}/${mm}/${dd}, ${hh}:${min}:${ss}`;
+    const formattedDate = `${yyyy}-${mm}-${dd}, ${hh}:${min}:${ss}`;
     return formattedDate;
 };
