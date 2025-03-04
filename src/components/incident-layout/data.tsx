@@ -1,6 +1,7 @@
 import { getdate } from "@/lib/utils";
 import { TimelineItemType } from "../ui/timeline-layout/timeline";
 import axios from "axios";
+import { MessageRespType } from "@/types/message";
 
 export async function getData(
     incidentId: string | undefined,
@@ -10,7 +11,7 @@ export async function getData(
     );
     const apiResponse = response.data;
     console.log(incidentId);
-    return apiResponse.map((message: any) => ({
+    return apiResponse.map((message: MessageRespType) => ({
         id: message.id,
         description: message.message,
         time: getdate(message.updatedAt),

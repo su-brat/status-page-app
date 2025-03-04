@@ -1,11 +1,10 @@
 import { getdate } from "@/lib/utils";
 import { IncidentList, IncidentStatus } from "./columns";
 import axios from "axios";
+import { IncidentRespType } from "@/types/incident";
 
 export async function getData(): Promise<IncidentList[]> {
-    // TODO: Fetch data from your API here.
-    // TODO: Change dates to a string format which can be sorted.
-    const getstatus = (closedAt: string) => {
+    const getstatus = (closedAt: string | undefined) => {
         if (closedAt) {
             return IncidentStatus.CLOSED;
         } else {
@@ -18,7 +17,7 @@ export async function getData(): Promise<IncidentList[]> {
         const apiResponse = response.data;
 
         // Ensure dates are converted to a sortable string format
-        return apiResponse.map((incident: any) => ({
+        return apiResponse.map((incident: IncidentRespType) => ({
             id: incident.id,
             title: incident.title,
             createdAt: getdate(incident.createdAt),

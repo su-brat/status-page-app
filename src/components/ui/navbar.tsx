@@ -25,14 +25,14 @@ const Navbar: React.FC<NavbarProps> = ({ navItems, title }) => {
                     </div>
 
                     {navItems.map((item) => (
-                        <Button
-                            variant={item.active ? "default" : "outline"}
-                            className="rounded-none"
-                        >
-                            <Link key={item.path} to={item.path}>
+                        <Link key={item.path} to={item.path}>
+                            <Button
+                                variant={item.active ? "default" : "outline"}
+                                className="rounded-none cursor-pointer"
+                            >
                                 {item.name}
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                     ))}
                 </div>
             </div>
