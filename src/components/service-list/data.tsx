@@ -1,10 +1,11 @@
 import axios from "axios";
 import { ServiceList } from "./columns";
 import { ServiceRespType } from "@/types/service";
+import { API_BASE_URL } from "@/lib/constants";
 
 export async function getData(): Promise<ServiceList[]> {
     try {
-        const response = await axios.get("http://localhost:8080/api/services");
+        const response = await axios.get(`${API_BASE_URL}/services`);
         const apiResponse = response.data;
 
         // Ensure dates are converted to a sortable string format

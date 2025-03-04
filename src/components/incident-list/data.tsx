@@ -2,6 +2,7 @@ import { getdate } from "@/lib/utils";
 import { IncidentList, IncidentStatus } from "./columns";
 import axios from "axios";
 import { IncidentRespType } from "@/types/incident";
+import { API_BASE_URL } from "@/lib/constants";
 
 export async function getData(): Promise<IncidentList[]> {
     const getstatus = (closedAt: string | undefined) => {
@@ -13,7 +14,7 @@ export async function getData(): Promise<IncidentList[]> {
     };
 
     try {
-        const response = await axios.get("http://localhost:8080/api/incidents");
+        const response = await axios.get(`${API_BASE_URL}/incidents`);
         const apiResponse = response.data;
 
         // Ensure dates are converted to a sortable string format
