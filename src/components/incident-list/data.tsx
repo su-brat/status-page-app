@@ -4,15 +4,15 @@ import axios from "axios";
 import { IncidentRespType } from "@/types/incident";
 import { API_BASE_URL } from "@/lib/constants";
 
-export async function getData(): Promise<IncidentList[]> {
-    const getstatus = (closedAt: string | undefined) => {
-        if (closedAt) {
-            return IncidentStatus.CLOSED;
-        } else {
-            return IncidentStatus.OPEN;
-        }
-    };
+const getstatus = (closedAt: string | undefined) => {
+    if (closedAt) {
+        return IncidentStatus.CLOSED;
+    } else {
+        return IncidentStatus.OPEN;
+    }
+};
 
+export async function getData(): Promise<IncidentList[]> {
     try {
         const response = await axios.get(`${API_BASE_URL}/incidents`);
         const apiResponse = response.data;

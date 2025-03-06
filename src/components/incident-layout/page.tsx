@@ -12,22 +12,27 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
+import useLoader from "@/hooks/useLoader";
+import Loader from "../ui/circle-loader";
 
 const Layout: React.FC = () => {
     const { incidentId } = useParams();
     const navigate = useNavigate();
     const [messages, setMessages] = useState<TimelineItemType[]>();
+    const { isLoading, startLoading, stopLoading } = useLoader(false);
 
     useEffect(() => {
         async function setData() {
+            startLoading();
             const msgs: TimelineItemType[] = await getData(incidentId);
             setMessages(msgs);
+            stopLoading();
         }
         setData();
     }, [incidentId]);
 
     return (
-        <div>
+        <div className="mx-4">
             <div className="flex">
                 <Button
                     variant="outline"
@@ -50,9 +55,12 @@ const Layout: React.FC = () => {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-
-            {(messages && <TimelineLayout timelineData={messages} />) || (
-                <div className="mt-8">No updates.</div>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                (messages && <TimelineLayout timelineData={messages} />) || (
+                    <div className="mt-8">No updates.</div>
+                )
             )}
         </div>
     );
